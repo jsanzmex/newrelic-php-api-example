@@ -14,9 +14,6 @@ function fone() {
 function ftwo() {
 	sleep(5);
 }
-function fthree() {
-	sleep(1);
-}
 
 // RUM: Real User Monitoring
 
@@ -59,7 +56,7 @@ if( extension_loaded('newrelic')) { newrelic_background_job(); }
 	if( extension_loaded('newrelic')) { newrelic_custom_metric("Custom/thingy/1",4000); }
 	if( extension_loaded('newrelic')) { newrelic_custom_metric("Custom/thingy/2",2300); }
 
-	// Custom parameters (key-value pairs) show up in two places:
+	// Custom parameters show up in two places:
 	// 1) traces (error/transaction)
 	// 2) insights transaction events
 	if( extension_loaded('newrelic')) { newrelic_add_custom_parameter ("hi", "mom"); }
@@ -93,35 +90,6 @@ if( extension_loaded('newrelic')) { newrelic_background_job(); }
 	//// END OF TRANSACTION SASQUATCH ////
 	//////////////////////////////////////
 
-
-	//////////////////////////////////////
-	//// START OF TRANSACTION BIGFOOT ////
-	//////////////////////////////////////
-
-	if( extension_loaded('newrelic')) { newrelic_name_transaction("/bigfoot"); }
-
-	//// Trace those slow functions in your app.
-	if( extension_loaded('newrelic')) { newrelic_add_custom_tracer("fthree"); }
-
-	// custom parameters show up in two places:  traces (error/transaction) and insights transaction events
-	if( extension_loaded('newrelic')) { newrelic_add_custom_parameter ("hello", "world"); }
-
-	//// Echo a different payload
-	echo "Second transaction payload.";
-
-	//// This random error (triggered 5% of the time)
-	//// is caused on purpose and will be reported to NR.
-	if(rand(1,100) > 98) {
-	  trigger_error("Bigfoot Random error",E_USER_ERROR);
-	}
-
-	//// These functions are traced 
-	fthree();
-
-	////////////////////////////////////
-	//// END OF TRANSACTION BIGFOOT ////
-	////////////////////////////////////
-
 //// if autoinstrumentation is off && page got header & is eligible, this will generate the necessary RUM footer,  otherwise not. To make sure:
 echo newrelic_get_browser_timing_footer();
 
@@ -131,3 +99,4 @@ echo newrelic_get_browser_timing_footer();
 
 
 ?>
+
