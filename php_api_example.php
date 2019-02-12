@@ -91,7 +91,7 @@ if( extension_loaded('newrelic')) { newrelic_background_job(); }
 	//////////////////////////////////////
 
 //// if autoinstrumentation is off && page got header & is eligible, this will generate the necessary RUM footer,  otherwise not. To make sure:
-echo newrelic_get_browser_timing_footer();
+if( extension_loaded('newrelic')) { echo newrelic_get_browser_timing_footer(); }
 
 ///////////////////////////
 //// END OF RUM BLOCK /////
